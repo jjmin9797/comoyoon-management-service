@@ -1,14 +1,19 @@
 package com.comoyoon.memberservice.service;
 
 import com.comoyoon.memberservice.domain.Member;
+import com.comoyoon.memberservice.domain.dto.AddMemberRequestDto;
 import com.comoyoon.memberservice.domain.type.PlaceType;
 import com.comoyoon.memberservice.repository.MemberRepository;
 import com.comoyoon.memberservice.utils.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +33,16 @@ public class MemberService {
         }
         String token = JwtTokenUtil.createToken(selectedMember.getLoginId(), key, expireTimeMs);
         return token;
+    }
+
+    public void addNewMember(AddMemberRequestDto dto){
+        Member newMember = dto.toEntity();
+        newMember.changeHashPassword(encoder.encode(dto.getPassword()));
+        memberRepository.save(newMember);
+    }
+
+    public List<Member> findAllMember() {
+        return memberRepository.findAll();
     }
 
     public void addSuperUser() {

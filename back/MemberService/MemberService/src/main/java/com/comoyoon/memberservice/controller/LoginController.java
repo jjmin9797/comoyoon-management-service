@@ -24,11 +24,6 @@ public class LoginController {
         }
     }
 
-    @PostMapping("/test")
-    public String test() {
-        return "얘는 가능";
-    }
-
     @GetMapping("/add/super")
     public String addSuper() {
         memberService.addSuperUser();

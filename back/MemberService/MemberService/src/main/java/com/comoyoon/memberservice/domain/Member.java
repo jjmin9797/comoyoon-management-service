@@ -52,4 +52,8 @@ public class Member {
 
     @Column
     private boolean isSuperAdmin;
+
+    public void changeHashPassword(String hashPassword) {
+        this.password = hashPassword;
+    }
 }
