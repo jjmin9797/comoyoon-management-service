@@ -26,7 +26,7 @@ public class MemberService {
         if (!encoder.matches(password,selectedMember.getPassword())){
             throw new UsernameNotFoundException("비밀 번호가 틀립니다.");
         }
-        String token = JwtTokenUtil.createToken(selectedMember.getMemberId(), key, expireTimeMs);
+        String token = JwtTokenUtil.createToken(selectedMember.getLoginId(), key, expireTimeMs);
         return token;
     }
 

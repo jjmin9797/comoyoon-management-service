@@ -8,9 +8,9 @@ import java.util.Date;
 
 public class JwtTokenUtil {
 
-    public static String createToken(Long memberId, String key, long expireTimeMs) {
+    public static String createToken(String loginId, String key, long expireTimeMs) {
         Claims claims = Jwts.claims();
-        claims.put("memberId",memberId);
+        claims.put("loginId",loginId);
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -26,6 +26,6 @@ public class JwtTokenUtil {
 
     public static String getMemberName(String token, String secretKey) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token)
-                .getBody().get("memberId",String.class);
+                .getBody().get("loginId",String.class);
     }
 }
