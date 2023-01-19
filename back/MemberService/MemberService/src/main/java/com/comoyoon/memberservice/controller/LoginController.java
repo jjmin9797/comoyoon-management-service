@@ -1,10 +1,10 @@
 package com.comoyoon.memberservice.controller;
 
+import com.comoyoon.memberservice.domain.dto.MemberLoginRequestDto;
 import com.comoyoon.memberservice.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -13,9 +13,10 @@ public class LoginController {
 
     private final MemberService memberService;
 
-    @GetMapping("/login")
-    public String login() {
-        return "SUCCESS";
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody MemberLoginRequestDto dto) {
+        String token = memberService.login(dto.getLoginId(),dto.getPassword());
+        return ResponseEntity.ok().body(token);
     }
 
     @GetMapping("/add/super")
