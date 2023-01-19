@@ -25,7 +25,7 @@ public class Member {
     @Column(nullable = false, length = 100)
     private String loginId;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 255)
     private String password;
 
     @Column(nullable = false, length = 50)
@@ -49,4 +49,7 @@ public class Member {
     @Column
     @CreatedDate
     private LocalDate dateOfEmployment;
+
+    @Column
+    private boolean isSuperAdmin;
 }
