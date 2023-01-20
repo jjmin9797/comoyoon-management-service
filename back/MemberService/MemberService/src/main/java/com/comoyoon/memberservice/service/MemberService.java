@@ -45,6 +45,12 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
+    public Member findByMemberId(long id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다."));
+        return member;
+    }
+
     public void addSuperUser() {
         Member member = Member.builder()
                 .loginId("admin")

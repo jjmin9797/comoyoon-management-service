@@ -28,4 +28,9 @@ public class MemberController {
         return ResponseEntity.ok().body("성공");
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findByIdMember(@PathVariable long id) {
+        Member member = memberService.findByMemberId(id);
+        return ResponseEntity.ok().body(member);
+    }
 }
