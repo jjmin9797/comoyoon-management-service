@@ -85,8 +85,6 @@
 
                           <!-- Form -->
                           <form
-                            method="post"
-                            action="#"
                             class="row form-block-sign-form"
                           >
                             <!-- Username or Email Address -->
@@ -120,9 +118,9 @@
                             <!-- Submit button -->
                             <div class="col-lg-12">
                               <button
-                                type="submit"
                                 class="btn btn-accent btn-block"
                                 style="background-color: black"
+                                @click="btnClick"
                               >
                                 <span>LOG IN</span>
                               </button>
@@ -158,15 +156,26 @@
     <!-- /End Main container -->
   </div>
   <!-- /End Main wrapper -->
-
 </template>
 
 <script>
-
+import api from '@/service/login/loginApi';
+//import axios from 'axios';
 export default {
+  setup() {
 
+    const btnClick = async () => {
+        await api.doLogin({"loginId":"admin","password":"1234"}).then((res) => {
+          console.log(res.data)
+        })
+      }
+      
+    return {btnClick}
+    }
 
-};
+    
+  }
+
 </script>
 
 <style>
